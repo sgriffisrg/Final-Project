@@ -5,30 +5,28 @@
 //
 // I confirm that I am the only author of this file
 //   and the content was created entirely by me.
-#ifndef SDDS_ITEM_H
-#define SDDS_ITEM_H
+#ifndef ITEM_H
+#define ITEM_H
 #include <iostream>
+#include <iomanip>
 #include <string>
+#include <vector>
+#include "Utilities.h"
 
-namespace sdds {
+class Item {
+	std::string m_name;
+	std::string m_description;
+	size_t m_serialNumber;
+	size_t m_quantity;
+public:
+	static size_t m_widthField;
+	Item(const std::string&);
+	const std::string& getName() const { return m_name; }
+	const unsigned int getSerialNumber() { return m_serialNumber++; }
+	const unsigned int getQuantity() { return m_quantity; }
+	void updateQuantity();
+	void display(std::ostream&, bool) const;
+};
 
-	class Item {
-		std::string m_name;
-		std::string m_description;
-		size_t m_serialNumber;
-		size_t m_quantity;
-		static size_t m_widthField;
-	public:
-		Item(const std::string&);
-		const std::string& getName() const { return m_name; }
-		const unsigned int getSerialNumber() { return m_serialNumber++; }
-		const unsigned int getQuantity() { return m_quantity; }
-		void updateQuantity();
-		void display(std::ostream&, bool) const;
-
-
-	};
-
-}
 
 #endif // !SDDS_ITEM_H

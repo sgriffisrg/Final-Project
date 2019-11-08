@@ -7,10 +7,24 @@
 //   and the content was created entirely by me.
 #include "Utilities.h"
 
-namespace sdds {
+char Utilities::m_delimiter = '\0';
 
-	const std::string Utilities::extractToken(const std::string& str, size_t& pos, bool& check){
-		
+const std::string Utilities::extractToken(const std::string& str, size_t& pos, bool& check){
+	std::string dummy = str;
+	dummy.erase(0, pos);
+	std::stringstream ss(dummy);
+	//std::cout << dummy << std::endl;
+	std::getline(ss, dummy, m_delimiter);
+	if (ss) {
+		check = true;
+		if (dummy.size() > 0) {
+			if (dummy.size() > m_widthField)
+				m_widthField = dummy.size();
+			return dummy;
+		}
 	}
-
+	else {
+		check = false;
+	}
+	return dummy;
 }
