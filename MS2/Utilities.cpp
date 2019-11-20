@@ -1,7 +1,7 @@
 // Name: Stephen Griffis	
 // Seneca Student ID: 119051183
 // Seneca email: sgriffis@myseneca.ca
-// Date of completion: November 8, 2019
+// Date of completion:
 //
 // I confirm that I am the only author of this file
 //   and the content was created entirely by me.
@@ -18,6 +18,9 @@ const std::string Utilities::extractToken(const std::string& str, size_t& pos, b
 		if (dummy.size() > 0) {
 			if (dummy.size() > m_widthField)
 				m_widthField = dummy.size();
+		}
+		else {
+			throw "No Token Found Between Delimiters!";
 		}
 	}
 	else {

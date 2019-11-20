@@ -1,7 +1,7 @@
 // Name: Stephen Griffis	
 // Seneca Student ID: 119051183
 // Seneca email: sgriffis@myseneca.ca
-// Date of completion: November 8, 2019
+// Date of completion:
 //
 // I confirm that I am the only author of this file
 //   and the content was created entirely by me.
@@ -10,7 +10,6 @@
 #include <string>
 #include <sstream>
 #include <iostream>
-
 
 class Utilities {
 	size_t m_widthField = 1;

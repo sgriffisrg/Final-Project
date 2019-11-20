@@ -1,7 +1,7 @@
 // Name: Stephen Griffis	
 // Seneca Student ID: 119051183
 // Seneca email: sgriffis@myseneca.ca
-// Date of completion: November 8, 2019
+// Date of completion:
 //
 // I confirm that I am the only author of this file
 //   and the content was created entirely by me.
@@ -20,18 +20,23 @@ Item::Item(const std::string& str) {
 		count++;
 		std::string extracted;
 		std::string dummy = str;
-		extracted = util.extractToken(str, pos, check);
-		dummy.erase(0, pos);
-		count != 4 ? pos += dummy.find(delimit) + 1 : pos += dummy.size();
-		
-		if (count == 1)
-			m_name = extracted;
-		else if (count == 2)
-			m_serialNumber = stoi(extracted);
-		else if (count == 3)
-			m_quantity = stoi(extracted);
-		else if (count == 4)
-			m_description = extracted;
+		try {
+			extracted = util.extractToken(str, pos, check);
+			dummy.erase(0, pos);
+			count != 4 ? pos += dummy.find(delimit) + 1 : pos += dummy.size();
+
+			if (count == 1)
+				m_name = extracted;
+			else if (count == 2)
+				m_serialNumber = stoi(extracted);
+			else if (count == 3)
+				m_quantity = stoi(extracted);
+			else if (count == 4)
+				m_description = extracted;
+		}
+		catch (const char* msg) {
+			std::cerr << msg << std::endl;
+		}
 	}
 
 	m_widthField = m_widthField < util.getFieldWidth() ? util.getFieldWidth() : m_widthField;
