@@ -12,7 +12,6 @@
 #include <string>
 #include <iomanip>
 #include <vector>
-#include <algorithm>
 #include "Item.h"
 #include "Utilities.h"
 
@@ -38,7 +37,7 @@ public:
 	CustomerOrder(const CustomerOrder&);
 	CustomerOrder(CustomerOrder&&) noexcept;
 	CustomerOrder& operator=(CustomerOrder&&);
-	bool getItemFillState(std::string) const;
+	bool getOrderFillState(std::string) const;
 	bool getOrderFillState() const;
 	void fillItem(Item&, std::ostream&);
 	void display(std::ostream&) const;

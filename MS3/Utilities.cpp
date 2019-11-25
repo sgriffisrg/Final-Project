@@ -16,9 +16,8 @@ const std::string Utilities::extractToken(const std::string& str, size_t& pos, b
 	std::getline(ss, dummy, m_delimiter);
 	if (ss) {
 		if (dummy.size() > 0) {
-			if (dummy.size() > m_widthField) {
+			if (dummy.size() > m_widthField)
 				m_widthField = dummy.size();
-			}
 		}
 		else {
 			throw "No Token Found Between Delimiters!";
