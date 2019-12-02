@@ -5,8 +5,8 @@
 //
 // I confirm that I am the only author of this file
 //   and the content was created entirely by me.
-#ifndef UTILITIES_H
-#define UTILITIES_H
+#ifndef SDDS_UTILITIES_H
+#define SDDS_UTILITIES_H
 #include <string>
 #include <sstream>
 #include <iostream>
