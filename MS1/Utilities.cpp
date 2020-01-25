@@ -9,11 +9,11 @@
 
 char Utilities::m_delimiter = '\0';
 
-const std::string Utilities::extractToken(const std::string& str, size_t& pos, bool& check){
+const std::string Utilities::extractToken(const std::string& str, size_t& pos, bool& check){ //Function used to go through a string sentence and pluck out specific pieces of info
 	std::string dummy = str;
 	dummy.erase(0, pos);
 	std::stringstream ss(dummy);
-	std::getline(ss, dummy, m_delimiter);
+	std::getline(ss, dummy, m_delimiter); 
 	if (ss) {
 		if (dummy.size() > 0) {
 			if (dummy.size() > m_widthField)

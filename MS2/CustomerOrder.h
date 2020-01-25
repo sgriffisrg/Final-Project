@@ -16,7 +16,7 @@
 #include "Item.h"
 #include "Utilities.h"
 
-struct ItemInfo
+struct ItemInfo //used to store the information of each item in a customer order
 {
 	std::string m_itemName;
 	unsigned int m_serialNumber = 0;

@@ -9,14 +9,14 @@
 
 size_t Item::m_widthField = 0;
 
-Item::Item(const std::string& str) {
+Item::Item(const std::string& str) { //takes in a string read from a data file for an Item object
 	Utilities util;
 	size_t count = 0;
 	const char delimit = util.getDelimiter();
 	size_t pos = 0;
 	bool check = true;
 
-	while (check) {
+	while (check) { //cleans up the string passed and initializes the data members
 		count++;
 		std::string extracted;
 		std::string dummy = str;
@@ -42,12 +42,12 @@ Item::Item(const std::string& str) {
 	m_widthField = m_widthField < util.getFieldWidth() ? util.getFieldWidth() : m_widthField;
 }
 
-void Item::updateQuantity() {
+void Item::updateQuantity() { //updates quantity
 	if (m_quantity - 1 >= 0)
 		m_quantity--;
 }
 
-void Item::display(std::ostream& out, bool check) const {
+void Item::display(std::ostream& out, bool check) const { //Displays the information of the item
 
 	out << std::left<< std::setw(m_widthField-8)  << m_name << std::right <<"["; out.width(6); out.fill('0'); out << m_serialNumber << "]";
 	out.fill(' ');

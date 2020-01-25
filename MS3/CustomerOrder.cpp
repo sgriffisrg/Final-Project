@@ -9,14 +9,14 @@
 
 size_t CustomerOrder::m_widthField = 0;
 
-CustomerOrder::CustomerOrder() {
+CustomerOrder::CustomerOrder() { //intializes all data members to a safe state
 	m_name = "";
 	m_product = "";
 	m_cntItem = 0;
 	m_lstItem = nullptr;
 }
 
-CustomerOrder::CustomerOrder(std::string& line) {
+CustomerOrder::CustomerOrder(std::string& line) { //receives a string containing information to a customer order
 	std::vector<std::string> products;
 	Utilities util;
 	size_t pos = 0;
@@ -25,7 +25,7 @@ CustomerOrder::CustomerOrder(std::string& line) {
 	std::string extracted;
 	int count = 0;
 
-	while (check) {
+	while (check) {  //will go through the string read from data file and take certain piece of information and store them in the corresponding variables
 		std::string dummy = line;
 		try {
 			extracted = util.extractToken(line, pos, check);
@@ -55,7 +55,7 @@ CustomerOrder::CustomerOrder(std::string& line) {
 	count = 0;
 	m_lstItem = new ItemInfo*[m_cntItem];
 
-	for (size_t i = 0; i < m_cntItem; i++){//std::vector<std::string>::iterator i = products.begin(); i != products.end(); i++, count++) {
+	for (size_t i = 0; i < m_cntItem; i++){//initializes the ItemInfo struct
 		m_lstItem[i] = new ItemInfo(products[i]);
 	}
 }
@@ -64,15 +64,15 @@ CustomerOrder::~CustomerOrder() {
 	delete[] m_lstItem;
 }
 
-CustomerOrder::CustomerOrder(const CustomerOrder& src) {
+CustomerOrder::CustomerOrder(const CustomerOrder& src) { //disable the copy constructor
 	throw std::string("Unable to make copies of the class CustomerOrder");
 }
 
-CustomerOrder::CustomerOrder(CustomerOrder&& src) noexcept {
+CustomerOrder::CustomerOrder(CustomerOrder&& src) noexcept { //move function
 	*this = std::move(src);
 }
 
-CustomerOrder& CustomerOrder::operator=(CustomerOrder&& src) {
+CustomerOrder& CustomerOrder::operator=(CustomerOrder&& src) { //overloaded move operator
 	m_name = src.m_name;
 	m_product = src.m_product;
 	m_cntItem = src.m_cntItem;
@@ -85,7 +85,7 @@ CustomerOrder& CustomerOrder::operator=(CustomerOrder&& src) {
 	return *this;
 }
 
-bool CustomerOrder::getItemFillState(std::string str) const {
+bool CustomerOrder::getItemFillState(std::string str) const { //get the fill state of specific items in the order
 	for (size_t i = 0; i < m_cntItem; i++) {
 		if (m_lstItem[i]->m_itemName == str) {
 			return m_lstItem[i]->m_fillState;
@@ -94,7 +94,7 @@ bool CustomerOrder::getItemFillState(std::string str) const {
 	return true;
 }
 
-bool CustomerOrder::getOrderFillState() const{
+bool CustomerOrder::getOrderFillState() const{ //query that returns the fill state of the customer order
 	bool flag = true;
 
 	for (size_t i = 0; i < m_cntItem; i++) {
@@ -104,7 +104,7 @@ bool CustomerOrder::getOrderFillState() const{
 	return flag;
 }
 
-void CustomerOrder::fillItem(Item& item, std::ostream& os) {
+void CustomerOrder::fillItem(Item& item, std::ostream& os) { //Fill customer orders if the Items required were in stock
 	for (size_t i = 0; i < m_cntItem; i++) {
 		if (m_lstItem[i]->m_itemName == item.getName()) {
 			if (item.getQuantity() > 0) {
@@ -120,7 +120,7 @@ void CustomerOrder::fillItem(Item& item, std::ostream& os) {
 	}
 }
 
-void CustomerOrder::display(std::ostream& os) const{
+void CustomerOrder::display(std::ostream& os) const{ //Displays all the information about the customer order
 	os << m_name << " - " << m_product << std::endl;
 
 	for (size_t i = 0; i < m_cntItem; i++) {

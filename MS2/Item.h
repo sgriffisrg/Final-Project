@@ -13,7 +13,7 @@
 #include <vector>
 #include "Utilities.h"
 
-class Item {
+class Item { //Item class declaration
 	std::string m_name;
 	std::string m_description;
 	size_t m_serialNumber;

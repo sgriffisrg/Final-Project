@@ -1,15 +1,15 @@
 #include "LineManager.h"
 
-LineManager::LineManager(const std::string& str, std::vector<Task*>& tasks, std::vector<CustomerOrder>& orders) {
+LineManager::LineManager(const std::string& str, std::vector<Task*>& tasks, std::vector<CustomerOrder>& orders) { //intializes the data members
 	m_cntCustomerOrder = orders.size();
-	std::ifstream file(str);
+	std::ifstream file(str); //opens the file 
 	int count = 0;
 
 	if (!file) {
 		throw std::string("Unable to open the file.");
 	}
 
-	while (!file.eof()) {
+	while (!file.eof()) { //until the file reaches the end 
 		Utilities util;
 		std::string dummy;
 		util.setDelimiter('|');
@@ -21,7 +21,7 @@ LineManager::LineManager(const std::string& str, std::vector<Task*>& tasks, std:
 		std::vector<std::string> extracted;
 		
 
-		while (check) {
+		while (check) { //extracts the required information from the line read from the file
 			std::string extr;
 			try {
 				extr = util.extractToken(record, pos, check);
@@ -35,14 +35,14 @@ LineManager::LineManager(const std::string& str, std::vector<Task*>& tasks, std:
 		}
 		count++;
 		Task* one;
-		std::for_each(tasks.begin(), tasks.end(), [&](Task* task) {
+		std::for_each(tasks.begin(), tasks.end(), [&](Task* task) { //displays which was at the front of the assembly line
 			if (task->getName() == extracted[0]) {
 				one = task;
 				if (count == 1)
 					front = task;
 			}
 		});
-		if (extracted.size() > 1) {
+		if (extracted.size() > 1) { //sets the next task 
 			std::for_each(tasks.begin(), tasks.end(), [&](Task* task) {
 
 				if (task->getName() == extracted[1]) {	
@@ -52,30 +52,30 @@ LineManager::LineManager(const std::string& str, std::vector<Task*>& tasks, std:
 		}
 		
 	}
-	for (size_t i = 0; i < orders.size(); i++) {
+	for (size_t i = 0; i < orders.size(); i++) {//fills the deque with all the unfilled orders
 		ToBeFilled.push_front(std::move(orders[i]));
 	}
-	std::for_each(tasks.begin(), tasks.end(), [&](Task* task) {
+	std::for_each(tasks.begin(), tasks.end(), [&](Task* task) {//fills the assembly line
 		AssemblyLine.push_back(task);
 	});
 	file.close();
 }
 
-bool LineManager::run(std::ostream& os) {
+bool LineManager::run(std::ostream& os) {//runs through the assembly line
 	bool check = false;
 
-	if (!ToBeFilled.empty()) {
+	if (!ToBeFilled.empty()) {//brings the next task up to the front.
 		*front += std::move(ToBeFilled.back());	
 		ToBeFilled.pop_back();
 	}
 
-	std::for_each(AssemblyLine.begin(), AssemblyLine.end(), [&](Task* task) {
+	std::for_each(AssemblyLine.begin(), AssemblyLine.end(), [&](Task* task) { //runs the required process on the assembly line
 		task->runProcess(os);
 	});
 	
 	CustomerOrder order;
 
-	std::for_each(AssemblyLine.begin(), AssemblyLine.end(), [&](Task* task) {
+	std::for_each(AssemblyLine.begin(), AssemblyLine.end(), [&](Task* task) { //moves the completed orders to the completed deque
 		task->moveTask();
 		if (task->getCompleted(order)) {
 			Completed.push_back(std::move(order));
@@ -88,13 +88,13 @@ bool LineManager::run(std::ostream& os) {
 	return check;
 }
 
-void LineManager::displayCompleted(std::ostream& os) const {
+void LineManager::displayCompleted(std::ostream& os) const { //displays the completed customer orders
 	for (auto i = Completed.begin(); i != Completed.end(); i++) {
 		i->display(os);
 	}
 }
 
-void LineManager::validateTasks() const {
+void LineManager::validateTasks() const { //goes through the task vector to validate all of them
 	for (Task* i : AssemblyLine) {
 		i->validate(std::cout);
 	}

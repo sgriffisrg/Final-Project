@@ -20,8 +20,8 @@ public:
 	void setFieldWidth(size_t width) { m_widthField = width; };
 	size_t getFieldWidth() const { return m_widthField; }
 	const std::string extractToken(const std::string&, size_t&, bool&);
-	static void setDelimiter(const char delimit) { m_delimiter = delimit; }
-	const char getDelimiter() const { return m_delimiter; }
+	static void setDelimiter(const char delimit) { m_delimiter = delimit; } //sets string delimiter
+	const char getDelimiter() const { return m_delimiter; } //a query to return the delimiter
 };
 
 #endif // !SDDS_UTILITIES_H
